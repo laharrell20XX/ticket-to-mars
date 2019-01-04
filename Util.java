@@ -10,6 +10,6 @@ public class Util {
     }
 
     public static <A> A choice(A[] things) {
-        return things[randint(things.length - 1)];
+        return things[randint(things.length)];
     }
 }
