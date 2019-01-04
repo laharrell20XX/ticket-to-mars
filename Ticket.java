@@ -7,6 +7,7 @@ public class Ticket {
     static int minPrice = 36;
     static int maxPrice = 50;
     static int secondsPerDay = 24 * 60 * 60;
+    static String lineFormat = "%-16s %4s %12s %6s\n";
 
     public static String randomSpaceline() {
         return Util.choice(spaceLines);
@@ -20,12 +21,21 @@ public class Ticket {
         return Util.randint(minSpeed, maxSpeed + 1);
     }
 
+    public static int tripPrice(int price, String tripType) {
+        if (tripType.equals("Round Trip")) {
+            return price * 2;
+        }
+        return price;
+    }
+
     public static String generateTicket() {
         int speed = randSpeed();
-        int days = kilometersToMars / (speed * secondsPerDay);
-        int price = speed + 20;
+        int days = (kilometersToMars / (speed * secondsPerDay));
+        String spaceLine = randomSpaceline();
+        String tripType = randomTripType();
+        String price = "$ " + Integer.toString(tripPrice(speed + 20, tripType));
 
-        return "ticket";
+        return String.format(lineFormat, spaceLine, days, tripType, price);
     }
 
 }
